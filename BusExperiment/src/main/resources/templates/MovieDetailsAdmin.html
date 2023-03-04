@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Movies</title>
+<style>
+#nav{
+border:2px solid black;
+box-shadow:10px grey;
+border-radius:10px;
+height:70px;
+}
+#btn{
+margin-top:10px;
+}
+#change:hover{
+background-color:aliceblue;
+border-radius:15px;
+color:black;
+border:1px solid black;
+}
+body{
+background-color:aliceblue;
+}
+</style>
+</head>
+
+ <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}" rel="stylesheet">
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}" ></script>
+
+<body>
+
+
+<center id="btn">
+<h3>ADD MOVIE DETAILS</h3>
+</center><br>
+<center>
+<form th:action="@{/ViewMovies}" method="get">
+<button class="btn btn-primary">View Current Movies</button>
+</form>
+
+</center>
+
+<br>
+<div class="container">
+<form th:action="@{/addmovie}" method="post">
+<div class="row">
+  <div class="col">
+    <input type="text" class="form-control" placeholder="Movie Name" name="movieName">
+  </div>
+  <div class="col">
+    <input type="text" class="form-control" placeholder="image.jpg" name="image"><br>
+    <small>Provide Movie Image Name with Extension as same as in the above text area</small>
+  </div>
+  <div class="col">
+    <input type="text" class="form-control" placeholder="Movie Type" name="movietype">
+  </div>
+ </div>
+<br>
+<center>
+<button class="btn btn-primary">ADD MOVIE</button>
+</center>
+</form>
+</div>
+
+
+
+
+</body>
+</html>

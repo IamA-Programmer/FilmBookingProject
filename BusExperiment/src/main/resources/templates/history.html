@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>History</title>
+
+<style>
+
+ #nav{
+border:1px solid black;
+box-shadow:10px grey;
+border-radius:10px;
+height:70px;
+} 
+
+body{
+background-color:aliceblue;
+}
+#change:hover{
+background-color:aliceblue;
+border-radius:15px;
+color:black;
+border:1px solid black;
+}
+#alet{
+margin-top:10px;
+border-radius:15px;
+height:50px;
+}
+
+</style>
+
+
+ <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css}" rel="stylesheet">
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js}" ></script>
+
+</head>
+<body>
+
+	
+	
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><b>KISHORE</b>&nbsp;<small>Cinemas</small></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a  class="nav-link active"th:classappend="${menu == 'home'} ? 'text-dark' : ' '" th:href="@{/home}" id="change">&nbsp;Home</a>
+        </li>
+        
+        <li class="nav-item">
+        <a class="nav-link" th:href="@{/setting}" id="change">&nbsp;Update Profile</a>
+        </li>
+        
+        <li class="nav-item">
+        <a class="nav-link" th:if="${session.user.bid==1}"th:href="@{/all-customers-records}"id="change">&nbsp;All Users</a>
+        </li>
+        
+        <li class="nav-item">
+        <a class="nav-link" th:href="@{/order-history}" id="change">&nbsp;Orders</a>
+        </li>
+        
+        
+        <li class="nav-item">
+        <a class="nav-link" th:href="@{/logout}" id="change">&nbsp;Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+					
+					<div class="container">
+					<div class="alert alert-success" id="alet">
+					<p class="text-center">Your History &nbsp;<span class="name-user" th:if="${session.user.name}" th:text="${session.user.name}"></p>
+					
+					</div>
+					</div>
+<div class="container">
+							<table class="table table-striped" style="width:100%">
+								<thead>
+									<tr>
+										<th scope="col" class="text-center">Movie</th>
+										<th scope="col" class="text-center">Seat</th>
+										<th scope="col" class="text-center">Each Price</th>
+										<th scope="col" class="text-center">Total price</th>
+										<th scope="col" class="text-center">Booking Date</th>
+										<th scope="col" class="text-center">Show on Date</th>
+										<th scope="col" class="text-center">Show on Time</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="history: ${hList}">
+										<td class="text-center"th:text="${history.movieName}"></td>
+										<td class="text-center"th:text="${history.seat}"></td>
+										<td class="text-center"th:text="${history.price}"></td>
+										<td class="text-center"th:text="${history.total}"></td>
+										<td
+											class="text-center" th:text="${#dates.format(history.bookOnDate, 'dd-MM-yyyy')}"></td>
+										<td
+											class="text-center" th:text="${#dates.format(history.showOnDate, 'dd-MM-yyyy')}"
+											th:classappend="${(history.showOnDate eq #dates.createToday()) or (history.showOnDate.after(#dates.createNow())) ? 'active' : 'deactive'}"></td>
+										<td class="text-center" th:text="${history.showTime}"
+											th:classappend="${(history.showOnDate eq #dates.createToday()) or (history.showOnDate.after(#dates.createNow())) ? 'active' : 'deactive'}"></td>
+
+									</tr>
+
+
+								</tbody>
+							</table>
+				</div>
+	<!-- <script th:inline="javascript">
+	let str = [[${list1}]];
+	let obj = JSON.parse(str);
+	console.log(obj.seat);
+	document.write(obj);
+	
+	</script> -->
+</body>
+</html>
